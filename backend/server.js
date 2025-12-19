@@ -8,8 +8,12 @@ import chatrouter from "./routes/chatroutes.js";
 import messagerouter from "./routes/messageRoutes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+// dotenv.config({
+//   // path: "./.env",
+//   path: "/backend/.env",
+// });
 dotenv.config({
-  path: "./.env",
+  path: path.resolve("./backend/.env"),
 });
 import { createServer } from "http";
 import { Server } from "socket.io";
@@ -198,21 +202,24 @@ console.log(process.env.NODE_ENV);
 
 if (process.env.NODE_ENV?.trim() === "production") {
   console.log("if me hu");
-  app.use(express.static(path.join(__dirname1, "..", "frontend", "build")));
+  const buildPath = path.join(__dirname1, "frontend", "build");
+  console.log("Serving static from:", buildPath); // debug
+  const buildPath2 = path.join(__dirname1, "..", "frontend", "build");
+  console.log("Serving static from:", buildPath2); // debug
 
- app.use((req, res) => {
-   res.sendFile(
-     path.resolve(__dirname1, "..", "frontend", "build", "index.html")
-   );
- });
+  app.use(express.static(path.join(__dirname1, "frontend", "build")));
 
+  app.use((req, res) => {
+    res.sendFile(
+      path.resolve(__dirname1, "..", "frontend", "build", "index.html")
+    );
+  });
 } else {
   console.log("else me hu");
   app.get("/", (req, res) => {
     res.send("API is running successfully");
   });
 }
-
 
 // app.listen(port, console.log(`Server is listning on ${port} port`.yellow.bold));//it will not tun with socket.io
 // ✅ Start the same HTTP server for both Express and Socket.IO
