@@ -16,7 +16,7 @@ import ProfileModal from "./ProfileModal";
 import Recent_chats from "./Recent_chats";
 import { ChatState } from "../../context/chatProvider";
 import { FaBell } from "react-icons/fa6";
-import { set } from "mongoose";
+// import { set } from "mongoose";
 import { IconButton } from "@chakra-ui/react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { Badge, Stack } from "@chakra-ui/react";
@@ -28,7 +28,8 @@ import {
 
 const Demo = () => {
   return (
-    <Stack direction="row">
+    <Stack  direction="row">
+      
       <Badge>Default</Badge>
       <Badge colorPalette="green">Success</Badge>
       <Badge colorPalette="red">Removed</Badge>
