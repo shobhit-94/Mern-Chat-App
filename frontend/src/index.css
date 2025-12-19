@@ -1,0 +1,11 @@
+[data-part="backdrop"] {
+  display: none !important;
+}
+
+.chakra-portal {
+  pointer-events: none;
+}
+
+.chakra-portal * {
+  pointer-events: auto;
+}
