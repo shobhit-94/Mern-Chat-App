@@ -36,6 +36,7 @@ const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
     origin: [
+      "https://mern-chat-app1-5utj.onrender.com",
       "http://localhost:3000",
       "http://localhost:3001",
       "http://127.0.0.1:3000",
