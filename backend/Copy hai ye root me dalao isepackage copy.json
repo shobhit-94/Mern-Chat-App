@@ -5,14 +5,18 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node backend/server.js",
+    "start": "cross-env NODE_ENV=production node backend/server.js",
     "dev": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\"",
     "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0"
   }
 }
