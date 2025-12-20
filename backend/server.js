@@ -13,7 +13,8 @@ import cors from "cors";
 //   path: "/backend/.env",
 // });
 dotenv.config({
-  path: path.resolve("./backend/.env"),
+  // path: path.resolve("./backend/.env"),
+  // path: path.resolve("./backend/.env"),
 });
 import { createServer } from "http";
 import { Server } from "socket.io";

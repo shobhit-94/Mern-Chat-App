@@ -111,16 +111,16 @@ const loginuser = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .cookie("token", token, {
-      path: "/",
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // require HTTPS in production
-      sameSite: "Lax", // ❌ "None" requires `secure:true` in Chrome
+      secure: true, // REQUIRED on Render (HTTPS)
+      sameSite: "None", // REQUIRED for cross-origin
     })
     .json({
       message: "User logged in successfully",
       user: token,
       loggedinuser,
     });
+
 });
 const GetAllUsers = asyncHandler(async (req, res) => {
   const allusers = await User.find();
