@@ -19,8 +19,7 @@ import { toaster } from "../ui/toaster";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ChatState } from "../../context/chatProvider";
-;
-
+import API from "../../api.js"; // adjust the path if needed
 const Login = () => {
   const chatState = ChatState();
   const { user, setUser } = chatState;
@@ -56,16 +55,14 @@ const Login = () => {
         email,
         password,
       };
-      const response = await axios.post(
-        "http://localhost:5000/api/user/login",
-        payload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
+     
+
+      const response = await axios.post(`${API}/api/user/login`, payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
 
       setLoading(false);
       // console.log(`response is ${response}`); //Inside a template string, response is automatically converted to a string.
@@ -73,7 +70,7 @@ const Login = () => {
       if (response.status === 200) {
         // 🧹 Clear any existing user info first
         localStorage.removeItem("userInfo");
-     
+
         console.log(
           "localStorage after remove:",
           localStorage.getItem("userInfo")
