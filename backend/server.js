@@ -180,6 +180,7 @@ app.use(
     // origin:process.env.CORS_ORGIN,
     // origin: "http://127.0.0.1:3000",
     origin: [
+      "https://mern-chat-app1-5utj.onrender.com",
       "http://localhost:3000",
       "http://127.0.0.1:3000",
       "http://localhost:3001",
@@ -205,15 +206,13 @@ if (process.env.NODE_ENV?.trim() === "production") {
   console.log("if me hu");
   const buildPath = path.join(__dirname1, "frontend", "build");
   console.log("Serving static from:", buildPath); // debug
-  const buildPath2 = path.join(__dirname1, "..", "frontend", "build");//ye wala path ChatApp ko chod de raha hai ye mat istmel karo resolve,res me bhi
+  const buildPath2 = path.join(__dirname1, "..", "frontend", "build"); //ye wala path ChatApp ko chod de raha hai ye mat istmel karo resolve,res me bhi
   console.log("Serving static from:", buildPath2); // debug
 
   app.use(express.static(path.join(__dirname1, "frontend", "build")));
 
   app.use((req, res) => {
-    res.sendFile(
-      path.resolve(__dirname1,"frontend", "build", "index.html")
-    );
+    res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
   });
 } else {
   console.log("else me hu");
