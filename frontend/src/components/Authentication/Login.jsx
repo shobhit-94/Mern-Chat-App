@@ -72,6 +72,7 @@ const Login = () => {
       // console.log(`response is ${response}`); //Inside a template string, response is automatically converted to a string.
 
       if (response.status === 200) {
+        console.log("response",response)
         // 🧹 Clear any existing user info first
         localStorage.removeItem("userInfo");
 
