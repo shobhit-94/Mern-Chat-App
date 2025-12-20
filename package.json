@@ -5,10 +5,9 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "start": "set NODE_ENV=production && node backend/server.js",
+    "start": "cross-env NODE_ENV=production node backend/server.js",
     "dev": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\"",
-    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",
