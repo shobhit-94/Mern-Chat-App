@@ -57,16 +57,12 @@ const Login = () => {
       };
      
 
-      const response = await axios.post(
-        `https://mern-chat-app1-5utj.onrender.com/api/user/login`,
-        payload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(`${API}/api/user/login`, payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
 
       setLoading(false);
       // console.log(`response is ${response}`); //Inside a template string, response is automatically converted to a string.
