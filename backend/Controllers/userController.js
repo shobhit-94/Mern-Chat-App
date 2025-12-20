@@ -113,7 +113,7 @@ const loginuser = asyncHandler(async (req, res) => {
     .cookie("token", token, {
       path: "/",
       httpOnly: true,
-      secure: false, //nOt  require HTTPS
+      secure: process.env.NODE_ENV === "production", // require HTTPS in production
       sameSite: "Lax", // ❌ "None" requires `secure:true` in Chrome
     })
     .json({

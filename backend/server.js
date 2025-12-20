@@ -24,7 +24,7 @@ import path from "path";
 connectDB();
 const app = express();
 const server = http.createServer(app);
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => {
   console.log(`🚀 Server and Socket.IO running on port ${PORT}`.yellow.bold),
