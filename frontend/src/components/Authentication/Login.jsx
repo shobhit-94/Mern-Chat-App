@@ -84,7 +84,7 @@ const Login = () => {
         // 🧠 Store new user info
         const userdata = JSON.stringify(response.data);
         localStorage.setItem("userInfo", userdata);
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("token", response.data.user);
 
 
         console.log(
