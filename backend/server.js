@@ -43,6 +43,7 @@ const io = new Server(server, {
       "http://127.0.0.1:3000",
       "http://127.0.0.1:3001",
     ],
+    credentials: true,
   },
 });
 
@@ -178,8 +179,6 @@ io.on("connection", (socket) => {
 app.use(cookieParser());
 app.use(
   cors({
-    // origin:process.env.CORS_ORGIN,
-    // origin: "http://127.0.0.1:3000",
     origin: [
       "https://mern-chat-app1-5utj.onrender.com",
       "http://localhost:3000",
@@ -187,11 +186,12 @@ app.use(
       "http://localhost:3001",
       "http://127.0.0.1:3001",
     ],
-    // origin:"https://localhost:8002",
-
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 app.use(express.json()); //hum apne backend sever ko bata re hai ki json data accept kerna hai
 app.use("/api/user", userrouter);
 app.use("/api/chat", chatrouter);
