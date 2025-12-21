@@ -5,6 +5,7 @@ import App from "./App";
 import { Provider } from "./components/ui/provider";
 import { BrowserRouter } from "react-router-dom";
 import ChatProvider from "./context/chatProvider.js";
+import axios from "axios";
 // import { Provider } from "./components/ui/provider.jsx";
 //@ mat lagao
 // ✅ Suppress ResizeObserver error globally — do this BEFORE rendering App
@@ -24,7 +25,18 @@ import ChatProvider from "./context/chatProvider.js";
 //   ) {
 //     e.preventDefault();
 //   }
-// });
+// });import axios from "axios";
+
+// 🔐 Attach JWT to every request (mobile-safe)
+axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
