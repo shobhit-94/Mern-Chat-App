@@ -58,7 +58,7 @@ const Login = () => {
      
 
       const response = await axios.post(
-        `${API}/api/user/login`,
+        `/api/user/login`,
         payload,
         {
           headers: {
