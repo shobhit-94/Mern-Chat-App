@@ -24,6 +24,56 @@ import path from "path";
 
 connectDB();
 const app = express();
+
+app.use(
+  cors({
+    origin: [
+      "https://mern-chat-app1-5utj.onrender.com",
+      "http://localhost:3000",
+      "http://127.0.0.1:3000",
+      "http://localhost:3001",
+      "http://127.0.0.1:3001",
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    // allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+app.use(express.json()); //hum apne backend sever ko bata re hai ki json data accept kerna hai
+app.use(cookieParser());
+app.use("/api/user", userrouter);
+app.use("/api/chat", chatrouter);
+app.use("/api/message", messagerouter);
+console.log("ENV CHECK:", process.env.NODE_ENV);
+
+// -------------------Deployment---------------
+const __dirname1 = path.resolve();
+console.log("ROUTE SETUP NODE_ENV =", JSON.stringify(process.env.NODE_ENV));
+console.log(process.env.NODE_ENV);
+
+if (process.env.NODE_ENV?.trim() === "production") {
+  console.log("if me hu");
+  const buildPath = path.join(__dirname1, "frontend", "build");
+  console.log("Serving static from:", buildPath); // debug
+  const buildPath2 = path.join(__dirname1, "..", "frontend", "build"); //ye wala path ChatApp ko chod de raha hai ye mat istmel karo resolve,res me bhi
+  console.log("Serving static from:", buildPath2); // debug
+
+  app.use(express.static(path.join(__dirname1, "frontend", "build")));
+  app.get("*", (req, res) => {
+    if (req.path.startsWith("/api")) {
+      return res.status(404).json({ message: "API route not found" });
+    }
+    res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
+  });
+
+} else {
+  console.log("else me hu");
+  app.get("/", (req, res) => {
+    res.send("API is running successfully");
+  });
+}
+
 const server = http.createServer(app);
 const PORT = process.env.PORT || 5000;
 
@@ -35,17 +85,9 @@ server.listen(PORT, () => {
 
 const io = new Server(server, {
   pingTimeout: 60000,
-  cors: {
-    origin: [
-      "https://mern-chat-app1-5utj.onrender.com",
-      "http://localhost:3000",
-      "http://localhost:3001",
-      "http://127.0.0.1:3000",
-      "http://127.0.0.1:3001",
-    ],
-    credentials: true,
-  },
+  transports: ["websocket", "polling"],
 });
+
 
 io.on("connection", (socket) => {
   //socket==client//ye chiz server se aati hai  isline se  socket = io() jo ki frontend me hai ;
@@ -175,51 +217,6 @@ io.on("connection", (socket) => {
     //  socket.in(chaid).emit("message seen ack", messageSeenData);
   });
 });
-
-app.use(
-  cors({
-    origin: [
-      "https://mern-chat-app1-5utj.onrender.com",
-      "http://localhost:3000",
-      "http://127.0.0.1:3000",
-      "http://localhost:3001",
-      "http://127.0.0.1:3001",
-    ],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    // allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-
-app.use(express.json()); //hum apne backend sever ko bata re hai ki json data accept kerna hai
-app.use(cookieParser());
-app.use("/api/user", userrouter);
-app.use("/api/chat", chatrouter);
-app.use("/api/message", messagerouter);
-console.log("ENV CHECK:", process.env.NODE_ENV);
-
-// -------------------Deployment---------------
-const __dirname1 = path.resolve();
-console.log("ROUTE SETUP NODE_ENV =", JSON.stringify(process.env.NODE_ENV));
-console.log(process.env.NODE_ENV);
-
-if (process.env.NODE_ENV?.trim() === "production") {
-  console.log("if me hu");
-  const buildPath = path.join(__dirname1, "frontend", "build");
-  console.log("Serving static from:", buildPath); // debug
-  const buildPath2 = path.join(__dirname1, "..", "frontend", "build"); //ye wala path ChatApp ko chod de raha hai ye mat istmel karo resolve,res me bhi
-  console.log("Serving static from:", buildPath2); // debug
-
-  app.use(express.static(path.join(__dirname1, "frontend", "build")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
-  });
-} else {
-  console.log("else me hu");
-  app.get("/", (req, res) => {
-    res.send("API is running successfully");
-  });
-}
 
 // app.listen(port, console.log(`Server is listning on ${port} port`.yellow.bold));//it will not tun with socket.io
 // ✅ Start the same HTTP server for both Express and Socket.IO
