@@ -70,6 +70,7 @@ if (process.env.NODE_ENV?.trim() === "production") {
   });
 }
 
+
 const server = http.createServer(app);
 const PORT = process.env.PORT || 5000;
 
