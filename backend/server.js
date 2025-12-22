@@ -188,7 +188,7 @@ app.use(
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    // allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
@@ -211,8 +211,7 @@ if (process.env.NODE_ENV?.trim() === "production") {
   console.log("Serving static from:", buildPath2); // debug
 
   app.use(express.static(path.join(__dirname1, "frontend", "build")));
-
-  app.use((req, res) => {
+  app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
   });
 } else {

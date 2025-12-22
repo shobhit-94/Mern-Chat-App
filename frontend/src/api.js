@@ -14,7 +14,7 @@ export default API;
 
 
 const API =
-  // "http://localhost:5000" // dev backend
-  "https://mern-chat-app1-5utj.onrender.com"; // production backend
+  "http://localhost:5000" // dev backend
+  // "https://mern-chat-app1-5utj.onrender.com"; // production backend
 
 export default API;
