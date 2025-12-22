@@ -24,7 +24,14 @@ import path from "path";
 
 connectDB();
 const app = express();
+app.use(
+  cors({
+    origin: true, // 👈 IMPORTANT
+    credentials: true,
+  })
+);
 
+/*
 app.use(
   cors({
     origin: [
@@ -38,10 +45,17 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     // allowedHeaders: ["Content-Type", "Authorization"],
   })
-);
-
+);*/
 app.use(express.json()); //hum apne backend sever ko bata re hai ki json data accept kerna hai
 app.use(cookieParser());
+// app.use((req, res, next) => {
+//   console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+//   next();
+// });
+// app.get("/api/test", (req, res) => {
+//   res.status(200).json({ msg: "API working" });
+// });
+
 app.use("/api/user", userrouter);
 app.use("/api/chat", chatrouter);
 app.use("/api/message", messagerouter);
@@ -60,7 +74,12 @@ if (process.env.NODE_ENV?.trim() === "production") {
   console.log("Serving static from:", buildPath2); // debug
 
   app.use(express.static(path.join(__dirname1, "frontend", "build")));
+  // 🚨 Protect API routes
   app.get("*", (req, res) => {
+    if (req.path.startsWith("/api")) {
+      return res.status(404).json({ message: "API route not found" });
+    }
+
     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
   });
 } else {
@@ -70,11 +89,10 @@ if (process.env.NODE_ENV?.trim() === "production") {
   });
 }
 
-
 const server = http.createServer(app);
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => {
+server.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server and Socket.IO running on port ${PORT}`.yellow.bold),
     console.log(process.env.NODE_ENV === "production", process.env.NODE_ENV);
   console.log(process.env.CLOUDINARY_CLOUD_NAME);
@@ -84,7 +102,6 @@ const io = new Server(server, {
   pingTimeout: 60000,
   transports: ["websocket", "polling"],
 });
-
 
 io.on("connection", (socket) => {
   //socket==client//ye chiz server se aati hai  isline se  socket = io() jo ki frontend me hai ;

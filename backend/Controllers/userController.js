@@ -110,7 +110,7 @@ const loginuser = asyncHandler(async (req, res) => {
   // console.log("token = ", token);
   // console.log("loggedinuser = ", loggedinuser);
   return res
-    .status(200)
+    .status(201)
     .cookie("token", token, {
       httpOnly: false,
       secure: true, // REQUIRED on Render (HTTPS)

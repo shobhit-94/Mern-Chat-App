@@ -19,6 +19,7 @@ import {
 //     }
 //   ]),(registeruser))
 // Register route with single image upload
+console.log("routes")
 router.post("/register", upload.single("pic"), registeruser);
 router.route("/login").post(loginuser);
 // router.route("/register").post(registeruser);
