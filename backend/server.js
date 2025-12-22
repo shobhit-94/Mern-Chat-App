@@ -176,7 +176,6 @@ io.on("connection", (socket) => {
   });
 });
 
-
 app.use(
   cors({
     origin: [
@@ -191,7 +190,6 @@ app.use(
     // allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
 
 app.use(express.json()); //hum apne backend sever ko bata re hai ki json data accept kerna hai
 app.use(cookieParser());
