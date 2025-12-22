@@ -115,6 +115,7 @@ const loginuser = asyncHandler(async (req, res) => {
       httpOnly: false,
       secure: true, // REQUIRED on Render (HTTPS)
       sameSite: "None", // REQUIRED for cross-origin
+      path: "/", // 🔥 REQUIRED
     })
     .json({
       message: "User logged in successfully",

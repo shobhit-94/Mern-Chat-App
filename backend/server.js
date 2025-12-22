@@ -176,7 +176,7 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use(cookieParser());
+
 app.use(
   cors({
     origin: [
@@ -192,7 +192,9 @@ app.use(
   })
 );
 
+
 app.use(express.json()); //hum apne backend sever ko bata re hai ki json data accept kerna hai
+app.use(cookieParser());
 app.use("/api/user", userrouter);
 app.use("/api/chat", chatrouter);
 app.use("/api/message", messagerouter);
