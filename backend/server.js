@@ -24,10 +24,30 @@ import path from "path";
 
 connectDB();
 const app = express();
+console.log("process.env.FRONTEND_URL = ", process.env.FRONTEND_URL);
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+  "http://localhost:3001",
+  "http://127.0.0.1:3001",
+];
+
 app.use(
   cors({
-    origin: true, // 👈 IMPORTANT
+    origin: function (origin, callback) {
+      // allow Postman / server-to-server requests (no origin)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
