@@ -30,6 +30,7 @@ import {
   Menu,
   Textarea,
 } from "@chakra-ui/react";
+import API from "../api.js"; // adjust the path if needed
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { FaRegEye } from "react-icons/fa";
 import CreateGroup from "../components/HomapageComponents/CreateGroup";
@@ -721,7 +722,7 @@ const Chatspage = ({ openIt }) => {
         };
         // console.log("config userList is ", config);
         const res = await axios.get(
-          `http://localhost:5000/api/chat/fetchUserOfGroup`,
+          `${API}/api/chat/fetchUserOfGroup`,
           config
         );
 
@@ -786,7 +787,7 @@ const Chatspage = ({ openIt }) => {
           withCredentials: true,
         };
         const res = await axios.delete(
-          `http://localhost:5000/api/message/delete-message?message_ID=${deleteMessageId}`,
+          `${API}/api/message/delete-message?message_ID=${deleteMessageId}`,
 
           config
         ); // waits here
@@ -853,7 +854,7 @@ const Chatspage = ({ openIt }) => {
       };
       console.log("Edit body is ", body);
       const res = await axios.post(
-        `http://localhost:5000/api/message/edit-message`,
+        `${API}/api/message/edit-message`,
         body,
         config
       );
@@ -921,7 +922,7 @@ const Chatspage = ({ openIt }) => {
       };
       console.log("body is ", body);
       const res = await axios.post(
-        `http://localhost:5000/api/message/send-message`,
+        `${API}/api/message/send-message`,
         body,
         config
       );
@@ -1518,10 +1519,7 @@ const Chatspage = ({ openIt }) => {
           },
           withCredentials: true,
         };
-        const res = await axios.get(
-          `http://localhost:5000/api/chat?userid=${userid}`,
-          config
-        );
+        const res = await axios.get(`${API}/api/chat?userid=${userid}`, config);
 
         if (res.status === 200) {
           toaster.dismiss();
@@ -1631,7 +1629,7 @@ const Chatspage = ({ openIt }) => {
         };
         // console.log("config userList is ", config);
         const res = await axios.get(
-          `http://localhost:5000/api/message/fetch-messages?chatid=${selectedChatId}`,
+          `${API}/api/message/fetch-messages?chatid=${selectedChatId}`,
           config
         );
 
@@ -1675,11 +1673,7 @@ const Chatspage = ({ openIt }) => {
         withCredentials: true,
       };
       console.log("config userList is ", config);
-      const res = await axios.put(
-        `http://localhost:5000/api/chat/addToGroup`,
-        body,
-        config
-      );
+      const res = await axios.put(`${API}/api/chat/addToGroup`, body, config);
 
       if (res.status === 200) {
         console.log("res data in AddToGRoup", res);
@@ -1722,11 +1716,7 @@ const Chatspage = ({ openIt }) => {
         withCredentials: true,
       };
       console.log("config userList is ", config);
-      const res = await axios.put(
-        `http://localhost:5000/api/chat/groupremove`,
-        body,
-        config
-      );
+      const res = await axios.put(`${API}/api/chat/groupremove`, body, config);
 
       if (res.status === 200) {
         // console.log("res data in AddToGRoup", res);

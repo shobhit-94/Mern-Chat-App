@@ -49,6 +49,7 @@ const Login = () => {
     }
 
     console.log("email = ", email);
+    console.log("api = ", API);
     console.log("password = ", password);
     try {
       const payload = {

@@ -13,8 +13,9 @@ export default API;
 */
 
 
-const API = process.env.REACT_APP_API_URL;
+const API = 
+// process.env.REACT_APP_API_URL;
   // "http://localhost:5000" // dev backend
-  // "https://mern-chat-app1-5utj.onrender.com"; // production backend
+  "https://mern-chat-app2-oxfs.onrender.com"; // production backend
 
 export default API;
