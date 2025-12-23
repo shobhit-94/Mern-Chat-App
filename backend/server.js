@@ -85,22 +85,27 @@ console.log("ENV CHECK:", process.env.NODE_ENV);
 const __dirname1 = path.resolve();
 console.log("ROUTE SETUP NODE_ENV =", JSON.stringify(process.env.NODE_ENV));
 console.log(process.env.NODE_ENV);
-if (process.env.NODE_ENV?.trim() === "production") {
-  app.use(express.static(path.join(__dirname1, "frontend", "build")));
+// if (process.env.NODE_ENV?.trim() === "production") {
+//   app.use(express.static(path.join(__dirname1, "frontend", "build")));
 
-  app.use((req, res) => {
-    if (req.path.startsWith("/api")) {
-      return res.status(404).json({ message: "API route not found" });
-    }
+//   app.use((req, res) => {
+//     if (req.path.startsWith("/api")) {
+//       return res.status(404).json({ message: "API route not found" });
+//     }
 
-    res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
-  });
-} else {
-  console.log("else me hu");
-  app.get("/", (req, res) => {
-    res.send("API is running successfully");
-  });
-}
+//     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
+//   });
+// } else {
+//   console.log("else me hu");
+//   app.get("/", (req, res) => {
+//     res.send("API is running successfully");
+//   });
+// }
+
+app.get("/", (req, res) => {
+  res.send("API is running successfully 🚀");
+});
+
 
 const server = http.createServer(app);
 const PORT = process.env.PORT || 5000;
