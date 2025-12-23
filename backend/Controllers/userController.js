@@ -67,7 +67,7 @@ const registeruser = asyncHandler(async (req, res) => {
 });
 
 const loginuser = asyncHandler(async (req, res) => {
-   console.log("yaha tak aa gya");
+  
   const { email, password } = req.body;
   // console.log("email = ", email);
   // console.log("password = ", password);
@@ -87,7 +87,7 @@ const loginuser = asyncHandler(async (req, res) => {
       .status(400)
       .json({ message: "User with this email is not present" });
   }
- 
+  console.log("yaha tak bhi aa gya");
   const ispasswordcorrect = await user_present.ispasswordcorrect(password);
   if (!ispasswordcorrect) {
     return res
@@ -110,7 +110,7 @@ const loginuser = asyncHandler(async (req, res) => {
   // console.log("token = ", token);
   // console.log("loggedinuser = ", loggedinuser);
   return res
-    .status(201)
+    .status(200)
     .cookie("token", token, {
       httpOnly: false,
       secure: true, // REQUIRED on Render (HTTPS)
