@@ -25,6 +25,7 @@ import { RiArrowRightLine, RiMailLine } from "react-icons/ri";
 import { IoIosMenu } from "react-icons/io";
 import { Box, Image } from "@chakra-ui/react";
 import axios from "axios";
+import API from "../../api"
 import { toaster } from "../ui/toaster";
 import UserList from "./UserList";
 import { MdCreateNewFolder } from "react-icons/md";
@@ -190,7 +191,7 @@ const Recent_chats = ({ isOpenRecent, setIsOpenRecent }) => {
       };
       // console.log("config userList is ", config);
       const res = await axios.get(
-        `http://localhost:5000/api/user/?search=${inputRef.current.value}`,
+        `${API}/api/user/?search=${inputRef.current.value}`,
         config
       );
 
@@ -348,7 +349,7 @@ const Recent_chats = ({ isOpenRecent, setIsOpenRecent }) => {
         };
         // console.log("config userList is ", config);
         const res = await axios.get(
-          `http://localhost:5000/api/user/getall`,
+          `${API}/api/user/getall`,
           config
         );
 

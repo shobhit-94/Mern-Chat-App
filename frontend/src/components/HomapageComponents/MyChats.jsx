@@ -8,7 +8,7 @@ import { Button, HStack, Text } from "@chakra-ui/react";
 import { RiArrowRightLine, RiMailLine } from "react-icons/ri";
 // import Chatpage_Test from "./Chatpage_Test_wrong";
 import ChatSection from "../../pages/ChatSection";
-
+import API from "../../api";
 const MyChats = ({ userid }) => {
   const [details, setDetails] = useState(null);
   const [openIt, setOpenIt] = useState(false);
@@ -56,7 +56,7 @@ const MyChats = ({ userid }) => {
         // );
 
         const res = await axios.get(
-          `http://localhost:5000/api/chat?userid=${userid}`,
+          `${API}/api/chat?userid=${userid}`,
 
           //   params: { userid },
           config
