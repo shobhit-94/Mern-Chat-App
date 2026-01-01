@@ -1,6 +1,7 @@
 import axios from "axios";
 import { toaster } from "../../../components/ui/toaster";
 import React, { useEffect, useRef, useState } from "react";
+import API from "../../../api";
 
 export const fetchLatestChatmessages = async (setLatest_Chats) => {
   //
@@ -16,7 +17,7 @@ export const fetchLatestChatmessages = async (setLatest_Chats) => {
     };
 
     const res = await axios.get(
-      "http://localhost:5000/api/message/latest-message",
+      `${API}/api/message/latest-message`,
       config
     );
 
@@ -59,7 +60,7 @@ export const message_read = async (setMessage_seen_ack, chatid) => {
     };
 
     const res = await axios.post(
-      `http://localhost:5000/api/message/read_By`,
+      `${API}/api/message/read_By`,
       body,
       config
     );
